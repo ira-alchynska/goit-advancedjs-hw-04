@@ -6,9 +6,15 @@ let lightbox = null;
 
 export function renderGallery(images) {
 
+
+
+  const existingImageIds = new Set([...gallery.querySelectorAll('.photo-card')].map(card => card.dataset.id));
+
+
   const markup = images
-    .map(
-      ({ id, webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+      .filter(image => !existingImageIds.has(image.id.toString()))  
+      .map(
+          ({ id, webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
           <div class="photo-card" data-id="${id}">
               <a href="${largeImageURL}">
                   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
@@ -20,17 +26,18 @@ export function renderGallery(images) {
                   <p><b>Downloads</b>: ${downloads}</p>
               </div>
           </div>`
-    )
-    .join('');
+      )
+      .join('');
 
-  gallery.insertAdjacentHTML('beforeend', markup);
+  gallery.insertAdjacentHTML('beforeend', markup);  
 
   if (lightbox) {
-    lightbox.refresh();
+      lightbox.refresh(); 
   } else {
-    lightbox = new SimpleLightbox('.gallery a');
+      lightbox = new SimpleLightbox('.gallery a');  
   }
 }
+
 
 
 
