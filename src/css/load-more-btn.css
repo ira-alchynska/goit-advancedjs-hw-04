@@ -1,0 +1,23 @@
+/* Styles for the "Load more" button */
+.load-more {
+    padding: 10px 20px;
+    background-color: #4E75FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;        
+    margin: 20px auto;      
+  }
+  
+  .load-more:hover {
+    background-color: #6C8CFF;
+  }
+  
+
+  .load-more.hidden {
+    display: none;
+  }
+  
