@@ -7,7 +7,6 @@ let lightbox = null;
 export function renderGallery(images) {
 
   const markup = images
-    .filter(image => !existingImageIds.has(image.id.toString()))
     .map(
       ({ id, webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
           <div class="photo-card" data-id="${id}">

@@ -17,11 +17,8 @@ loadMoreBtn.addEventListener('click', onLoadMore);
 
 async function onSearch(event) {
     event.preventDefault();
-
-    
     searchQuery = input.value.trim();
 
-    
     if (!searchQuery) {
         iziToast.warning({
             title: 'Warning',
