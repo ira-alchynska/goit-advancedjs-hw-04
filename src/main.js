@@ -8,7 +8,6 @@ const input = document.querySelector('input[name="searchQuery"]');
 const loader = document.querySelector('.loader');
 const loadMoreBtn = document.querySelector('.load-more');
 
-
 let page = 1;
 let searchQuery = '';
 
@@ -29,13 +28,12 @@ async function onSearch(event) {
 
     clearGallery();
     loader.classList.add('show');
-    loadMoreBtn.classList.add('hidden');  
+    loadMoreBtn.classList.add('hidden');
     page = 1;
 
     try {
         const images = await fetchImages(searchQuery, page);
-        console.log('Images fetched:', images); 
-        
+        console.log('Images fetched:', images);
 
         if (!images || images.length === 0) {
             iziToast.error({
@@ -47,12 +45,10 @@ async function onSearch(event) {
 
         renderGallery(images);
 
-
         if (images.length >= 15) {
-            loadMoreBtn.classList.remove('hidden'); 
+            loadMoreBtn.classList.remove('hidden');
         }
     } catch (error) {
-
         console.error('Error in onSearch:', error.message);
         iziToast.error({
             title: 'Error',
@@ -60,13 +56,11 @@ async function onSearch(event) {
         });
     } finally {
         loader.classList.remove('show');
-        console.log('Search process completed');
     }
 }
 
-
 async function onLoadMore() {
-    page += 1; 
+    page += 1;
     loader.classList.add('show');
     try {
         const images = await fetchImages(searchQuery, page);
@@ -75,12 +69,11 @@ async function onLoadMore() {
                 title: 'Info',
                 message: "We're sorry, but you've reached the end of search results.",
             });
-            loadMoreBtn.classList.add('hidden');  
+            loadMoreBtn.classList.add('hidden');
             return;
         }
         renderGallery(images);
         smoothScroll();
-
 
         if (images.length < 15) {
             loadMoreBtn.classList.add('hidden');
@@ -95,12 +88,11 @@ async function onLoadMore() {
     }
 }
 
-
 function smoothScroll() {
     const { height: cardHeight } = document
         .querySelector('.gallery')
         .firstElementChild.getBoundingClientRect();
-    
+
     window.scrollBy({
         top: cardHeight * 2,
         behavior: 'smooth',

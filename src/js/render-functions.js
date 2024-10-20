@@ -6,16 +6,14 @@ let lightbox = null;
 
 export function renderGallery(images) {
 
-
-
   const existingImageIds = new Set([...gallery.querySelectorAll('.photo-card')].map(card => card.dataset.id));
 
 
   const markup = images
-      .filter(image => !existingImageIds.has(image.id.toString()))  
-      .map(
-          ({ id, webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
-          <div class="photo-card" data-id="${id}">
+    .filter(image => !existingImageIds.has(image.id.toString()))
+    .map(
+      ({ id, webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => `
+          <div class="photo-card" data-id="${id}">  <!-- Assign data-id to track unique images -->
               <a href="${largeImageURL}">
                   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
               </a>
@@ -26,21 +24,21 @@ export function renderGallery(images) {
                   <p><b>Downloads</b>: ${downloads}</p>
               </div>
           </div>`
-      )
-      .join('');
+    )
+    .join('');
 
-  gallery.insertAdjacentHTML('beforeend', markup);  
+
+  gallery.insertAdjacentHTML('beforeend', markup);
+
 
   if (lightbox) {
-      lightbox.refresh(); 
+    lightbox.refresh();
   } else {
-      lightbox = new SimpleLightbox('.gallery a');  
+    lightbox = new SimpleLightbox('.gallery a');
   }
 }
-
-
-
 
 export function clearGallery() {
   gallery.innerHTML = '';
 }
+
